@@ -20,6 +20,12 @@ intern-portal/
 ## screenshot
 <img width="1917" height="917" alt="projectscr1" src="https://github.com/user-attachments/assets/f57043bf-00c2-41c3-863e-59bb153c2238" />
 
+<img width="1917" height="916" alt="projectscr2" src="https://github.com/user-attachments/assets/bf0f597a-e526-4c53-8405-b08c5817ad7a" />
+
+<img width="1918" height="925" alt="projectscr3" src="https://github.com/user-attachments/assets/f4de8b10-195d-4634-911f-c7a660cd184d" />
+
+
+
 
 ## 🔧 Tech Stack Used
 

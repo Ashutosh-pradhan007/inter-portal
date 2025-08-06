@@ -9,7 +9,10 @@ export default function Leaderboard() {
 
   useEffect(() => {
     axios.get('http://localhost:4000/api/leaderboard')
-      .then(res => setList(res.data.sort((a, b) => b.raised - a.raised)))
+      .then(res => {
+        const sorted = res.data.sort((a, b) => b.raised - a.raised);
+        setList(sorted);
+      })
       .catch(console.error);
   }, []);
 
@@ -21,11 +24,16 @@ export default function Leaderboard() {
     return `${rank}th`;
   };
 
-  // Map names to public image paths
+  // Map API names to local image paths
   const localImages = {
     'Ashutosh Pradhan': '/images/ashu.jpg',
-    'Sudipta Behera': '/images/sipu.jpg',
-    'Modi': '/images/modi.jpg'
+    'Sudipta Behera':   '/images/sipu.jpg',
+    'Priya Singh':      '/images/modi.jpg'
+  };
+
+  // Override display names for certain entries
+  const displayNames = {
+    'Priya Singh': 'Modi Ji'
   };
 
   return (
@@ -40,45 +48,54 @@ export default function Leaderboard() {
           Global Leaderboard
         </h2>
         <ol className="space-y-6">
-          {list.map((item, index) => (
-            <motion.li
-              key={index}
-              initial={{ x: 50, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: index * 0.15 }}
-              className={`flex items-center gap-5 p-4 rounded-2xl shadow-md hover:shadow-lg transition bg-white ${
-                index === 0
-                  ? 'border-l-8 border-yellow-400'
-                  : index === 1
-                  ? 'border-l-8 border-gray-400'
-                  : index === 2
-                  ? 'border-l-8 border-orange-400'
-                  : ''
-              }`}
-            >
-              <div className="relative flex-shrink-0">
-                <span className="absolute -top-3 -left-3 text-2xl">{getRankLabel(index)}</span>
-                <img
-                  src={localImages[item.name] || item.image}
-                  alt={item.name}
-                  className="w-16 h-16 rounded-full border-2 border-gray-300 object-cover"
-                  onError={e => {
-                    e.target.onerror = null;
-                    e.target.src = `https://placehold.co/64x64?text=${item.name[0]}`;
-                  }}
-                />
-              </div>
-              <div className="flex-1">
-                <p className="text-xl font-semibold text-gray-800">{item.name}</p>
-                <p className="text-gray-600">₹{item.raised.toLocaleString()} raised</p>
-              </div>
-            </motion.li>
-          ))}
+          {list.map((item, index) => {
+            // Determine which name to show
+            const nameToShow = displayNames[item.name] || item.name;
+
+            return (
+              <motion.li
+                key={index}
+                initial={{ x: 50, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ delay: index * 0.15 }}
+                className={`flex items-center gap-5 p-4 rounded-2xl shadow-md hover:shadow-lg transition bg-white ${
+                  index === 0
+                    ? 'border-l-8 border-yellow-400'
+                    : index === 1
+                    ? 'border-l-8 border-gray-400'
+                    : index === 2
+                    ? 'border-l-8 border-orange-400'
+                    : ''
+                }`}
+              >
+                <div className="relative flex-shrink-0">
+                  <span className="absolute -top-3 -left-3 text-2xl">{getRankLabel(index)}</span>
+                  <img
+                    src={localImages[item.name] || item.image}
+                    alt={nameToShow}
+                    className="w-16 h-16 rounded-full border-2 border-gray-300 object-cover"
+                    onError={e => {
+                      e.target.onerror = null;
+                      e.target.src = `https://placehold.co/64x64?text=${nameToShow[0]}`;
+                    }}
+                  />
+                </div>
+                <div className="flex-1">
+                  <p className="text-xl font-semibold text-gray-800">{nameToShow}</p>
+                  <p className="text-gray-600">₹{item.raised.toLocaleString()} raised</p>
+                </div>
+              </motion.li>
+            );
+          })}
         </ol>
+        {list.length === 0 && (
+          <p className="text-center text-gray-500 mt-4">No entries yet.</p>
+        )}
       </motion.div>
     </div>
   );
 }
+
 
 
 

@@ -17,6 +17,10 @@ intern-portal/
 │ └── Login.js
 └── README.md
 
+## screenshot
+<img width="1917" height="917" alt="projectscr1" src="https://github.com/user-attachments/assets/f57043bf-00c2-41c3-863e-59bb153c2238" />
+
+
 ## 🔧 Tech Stack Used
 
 - **Frontend**: React.js + Tailwind CSS + Framer Motion

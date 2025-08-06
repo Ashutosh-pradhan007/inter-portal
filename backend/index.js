@@ -42,12 +42,12 @@ app.get('/api/leaderboard', (req, res) => {
     {
       name: 'Rahul Sharma',
       raised: 3500,
-      image: 'https://placehold.co/80x80?text=RS'
+      image: '/images/rahul.svg'
     },
     {
       name: 'Neha Gupta',
       raised: 2800,
-      image: 'https://placehold.co/80x80?text=NG'
+      image: '/images/neha.svg'
     }
   ];
 
